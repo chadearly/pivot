@@ -1,0 +1,22 @@
+<article class="article-card">
+  {% if article.image %}
+    <a class="article-card__media" href="{{ article.url }}">
+      {{ article.image | image_url: width: 1000 | image_tag: class: 'article-card__image', loading: 'lazy', alt: article.image.alt | default: article.title }}
+    </a>
+  {% endif %}
+  <div class="article-card__body">
+    {% if article.tags.size > 0 %}
+      <span class="pill">{{ article.tags.first }}</span>
+    {% endif %}
+    <h3 class="article-card__title">
+      <a href="{{ article.url }}">{{ article.title }}</a>
+    </h3>
+    {% if article.excerpt != blank %}
+      <p class="article-card__excerpt">{{ article.excerpt | strip_html | truncate: 160 }}</p>
+    {% endif %}
+    <a class="read-link" href="{{ article.url }}">
+      {{ 'blogs.article.read_more' | t | default: 'Read Article' }}
+      <img class="read-link__icon" src="{{ 'arrow-right.svg' | asset_url }}" alt="" width="8" height="8">
+    </a>
+  </div>
+</article>

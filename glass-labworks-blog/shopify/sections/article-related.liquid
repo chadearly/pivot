@@ -1,0 +1,69 @@
+<section class="related-articles" aria-labelledby="related-title-{{ section.id }}">
+  {% if section.settings.background_image != blank %}
+    {{ section.settings.background_image | image_url: width: 2400 | image_tag: class: 'related-articles__bg', loading: 'lazy', alt: '' }}
+  {% else %}
+    <img class="related-articles__bg" src="{{ 'related-bg.jpg' | asset_url }}" alt="" aria-hidden="true">
+  {% endif %}
+  <div class="related-articles__inner">
+    {% if section.settings.title != blank %}
+      <h2 class="related-articles__title" id="related-title-{{ section.id }}">{{ section.settings.title }}</h2>
+    {% endif %}
+    <div class="related-articles__grid">
+      {% assign related_blog = section.settings.blog | default: blog %}
+      {% if section.settings.article_list != blank %}
+        {% for handle in section.settings.article_list %}
+          {% assign related_article = articles[handle] %}
+          {% if related_article != blank %}
+            {% render 'article-card', article: related_article %}
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        {% for related_article in related_blog.articles limit: section.settings.post_limit %}
+          {% unless related_article.id == article.id %}
+            {% render 'article-card', article: related_article %}
+          {% endunless %}
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Related articles",
+  "tag": "section",
+  "class": "section-related-articles",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Related articles"
+    },
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Blog"
+    },
+    {
+      "type": "range",
+      "id": "post_limit",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "label": "Maximum articles",
+      "default": 3
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Related articles"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,85 @@
+{{ 'blog-detail.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'blog-detail.js' | asset_url }}" defer></script>
+
+<section class="article-hero">
+  <div class="content-column">
+    {% if article.tags.size > 0 %}
+      <span class="pill">{{ article.tags.first }}</span>
+    {% endif %}
+    <h1 class="article-hero__title">{{ article.title }}</h1>
+    {% if article.excerpt != blank %}
+      <p class="article-hero__dek">{{ article.excerpt }}</p>
+    {% endif %}
+  </div>
+</section>
+
+{% if article.image %}
+  <figure class="article-media">
+    {{ article.image | image_url: width: 2400 | image_tag: class: 'article-media__image', loading: 'eager', alt: article.image.alt | default: article.title }}
+  </figure>
+{% endif %}
+
+<article class="article-body">
+  <div class="content-column article-body__inner rte">
+    {{ article.content }}
+
+    <nav class="article-nav" aria-label="Article pagination">
+      {% if blog.previous_article %}
+        <a class="article-nav__link" href="{{ blog.previous_article.url }}">
+          <img class="article-nav__icon" src="{{ 'arrow-left.svg' | asset_url }}" alt="" width="12" height="12">
+          {{ 'blogs.article.previous' | t | default: 'Previous' }}
+        </a>
+      {% else %}
+        <span></span>
+      {% endif %}
+      {% if blog.next_article %}
+        <a class="article-nav__link" href="{{ blog.next_article.url }}">
+          {{ 'blogs.article.next' | t | default: 'Next' }}
+          <img class="article-nav__icon" src="{{ 'arrow-right.svg' | asset_url }}" alt="" width="12" height="12">
+        </a>
+      {% endif %}
+    </nav>
+  </div>
+</article>
+
+<style>
+  .rte h2 {
+    margin: 8px 0 0;
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 24px;
+    padding-top: 16px;
+    overflow-wrap: anywhere;
+  }
+
+  @media (min-width: 900px) {
+    .rte h2 {
+      padding-top: 24px;
+    }
+  }
+
+  .rte h2:first-child {
+    padding-top: 0;
+  }
+
+  .rte p,
+  .rte li {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .rte p + p {
+    margin-top: 16px;
+  }
+
+  .rte img {
+    width: 100%;
+    object-fit: cover;
+    margin: 16px 0;
+  }
+
+  .rte ul {
+    padding-left: 28px;
+  }
+</style>

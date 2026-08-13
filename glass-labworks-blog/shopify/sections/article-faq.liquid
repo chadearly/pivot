@@ -1,0 +1,88 @@
+{% if section.blocks.size > 0 %}
+  <section class="article-faq" aria-labelledby="faq-title-{{ section.id }}">
+    <div class="content-column article-faq__inner">
+      {% if section.settings.title != blank %}
+        <h2 class="article-faq__title" id="faq-title-{{ section.id }}">{{ section.settings.title }}</h2>
+      {% endif %}
+      <div class="faq-list">
+        {% for block in section.blocks %}
+          <div class="faq-item" data-faq-item aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}" {{ block.shopify_attributes }}>
+            <button class="faq-item__header" type="button">
+              <span class="faq-item__question">{{ block.settings.question }}</span>
+              <img
+                class="faq-item__chevron"
+                src="{{ 'chevron-down.svg' | asset_url }}"
+                alt=""
+                width="12"
+                height="6"
+              >
+            </button>
+            {% if block.settings.answer != blank %}
+              <p class="faq-item__answer">{{ block.settings.answer }}</p>
+            {% endif %}
+          </div>
+          {% unless forloop.last %}
+            <hr class="faq-divider">
+          {% endunless %}
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Article FAQ",
+  "tag": "section",
+  "class": "section-article-faq",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Frequently asked questions"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "What makes Glass Labworks different?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Answer",
+          "default": "We combine science-backed ingredients with thoughtful formulations designed to support healthier-looking skin and hair."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Article FAQ",
+      "blocks": [
+        {
+          "type": "question",
+          "settings": {
+            "question": "What makes Glass Labworks different?",
+            "answer": "We combine science-backed ingredients with thoughtful formulations designed to support healthier-looking skin and hair."
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "question": "How do I know which products are right for me?",
+            "answer": "Start with your primary concern and choose products formulated for that goal."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

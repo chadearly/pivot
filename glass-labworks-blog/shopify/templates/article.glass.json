@@ -1,0 +1,60 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-article-glass",
+      "settings": {}
+    },
+    "faq": {
+      "type": "article-faq",
+      "blocks": {
+        "q1": {
+          "type": "question",
+          "settings": {
+            "question": "What makes Glass Labworks different?",
+            "answer": "We combine science-backed ingredients with thoughtful formulations designed to support healthier-looking skin and hair."
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "How do I know which products are right for me?",
+            "answer": "Start with your primary concern and choose products formulated for that goal."
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "question": "Can I use Glass Labworks products every day?",
+            "answer": "Most routines are designed for daily use. Follow the directions on each product for best results."
+          }
+        },
+        "q4": {
+          "type": "question",
+          "settings": {
+            "question": "Are Glass Labworks products suitable for all skin and hair types?",
+            "answer": "Our formulas are developed for a wide range of skin and hair types. Patch test if you have sensitivities."
+          }
+        },
+        "q5": {
+          "type": "question",
+          "settings": {
+            "question": "How long does it take to see results?",
+            "answer": "Results vary by product and routine. Many customers notice improvements within a few weeks of consistent use."
+          }
+        }
+      },
+      "block_order": ["q1", "q2", "q3", "q4", "q5"],
+      "settings": {
+        "title": "Frequently asked questions"
+      }
+    },
+    "related": {
+      "type": "article-related",
+      "settings": {
+        "title": "Related articles",
+        "post_limit": 3
+      }
+    }
+  },
+  "order": ["main", "faq", "related"]
+}
